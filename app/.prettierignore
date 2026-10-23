@@ -7,6 +7,3 @@ bun.lockb
 
 # Miscellaneous
 /static/
-
-# ignore worker-configuration.d.ts, prettier takes too long because this file is large
-worker-configuration.d.ts

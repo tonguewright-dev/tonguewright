@@ -5,18 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "wrangler types --check && vite build",
-    "preview": "wrangler dev .svelte-kit/cloudflare/_worker.js --port 8607",
+    "build": "vite build",
+    "preview": "vite preview --port 8607",
     "prepare": "svelte-kit sync || echo ''",
-    "check": "wrangler types --check && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
-    "format": "prettier --write .",
-    "gen": "wrangler types"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@sveltejs/adapter-cloudflare": "^8.0.0",
+    "@sveltejs/adapter-static": "^4.0.0",
     "@sveltejs/kit": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@tailwindcss/typography": "^0.5.19",
@@ -35,15 +34,10 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1",
-    "vite": "^8.3.0",
-    "wrangler": "^4.97.0"
+    "vite": "^8.3.0"
   },
   "imports": {
     "#lib": "./src/lib/index.js",
     "#lib/*": "./src/lib/*"
-  },
-  "allowScripts": {
-    "esbuild@0.28.2": true,
-    "workerd@1.20261019.1": true
   }
 }
