@@ -1,10 +1,19 @@
-<h1>Welcome to tonguewright</h1>
-<p>
-  This app is currently under construction. Visit <a
-    href="https://github.com/tonguewright-dev/tonguewright">tonguewright-dev/tonguewright</a
-  > for more details.
-</p>
+<script lang="ts">
+  import { languages } from '#lib/stores.ts';
+  import { resolve } from '$app/paths';
+</script>
 
-<p>
-  Try the alpha version <a href="https://dev.tonguewright-app.pages.dev">here</a>
-</p>
+<h1>Home</h1>
+
+{#if $languages?.length}
+  <ul>
+    {#each $languages as lang (lang.id)}
+      <li>
+        <a href={resolve('/languages/[id=code]', { id: lang.code || lang.id })}>{lang.name}</a>
+      </li>
+    {/each}
+  </ul>
+{:else}
+  <p>You haven't created any languages yet.</p>
+  <a class="btn font-bold btn-primary" href={resolve('/languages/new')}>Create a Language</a>
+{/if}
