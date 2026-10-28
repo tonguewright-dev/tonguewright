@@ -15,14 +15,14 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="flex h-screen flex-col">
+<div class="flex h-screen flex-col bg-base-100">
   <nav class="navbar bg-primary text-primary-content shadow-sm">
     <a
       class="btn btn-ghost text-xl text-primary-content hover:text-base-content"
       href={resolve('/')}>tonguewright</a
     >
   </nav>
-  <div class="m-2 prose grow">
+  <div class="mx-auto my-2 prose w-full grow px-2">
     {@render children()}
   </div>
   <footer class="flex flex-row items-center bg-neutral p-4 text-neutral-content">
