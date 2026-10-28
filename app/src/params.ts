@@ -1,4 +1,5 @@
-import { BCP47Schema, uuidSchema } from '#lib/valibot.ts';
+import { BCP47Schema } from '#lib/validation/langcode.ts';
+import { uuidSchema } from '#lib/validation/uuid.ts';
 import { defineParams } from '@sveltejs/kit/params';
 import { safeParse } from 'valibot';
 

@@ -4,7 +4,6 @@
   import { untrack } from 'svelte';
   import Input from '#lib/components/Input.svelte';
   import { Icons } from '#lib/icons/index.ts';
-  import { artBCP47RegExp } from '#lib/valibot.ts';
   import SelectWithIcon from '#lib/components/SelectWithIcon.svelte';
   import { languages } from '#lib/stores.ts';
   import Markdown from '../../../lib/components/Markdown.svelte';
@@ -13,6 +12,7 @@
   import { uuidv7 } from 'uuidv7';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
+  import { artBCP47RegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
 
   interface Props {
     data: PageData;
@@ -63,29 +63,7 @@
       placeholder: 'art-x-langcode',
       pattern: artBCP47RegExp.source,
       oninput: (e) => {
-        // auto-correct language code
-        if (e.currentTarget.value) {
-          let value = e.currentTarget.value;
-          if (!value.startsWith('art-x-') && !value.match(/^a?r?t?-?x?$/)) {
-            value = 'art-x-' + value;
-          }
-          value = value.replace(/--+/g, '-');
-          value = value.replace(/[^A-Za-z0-9-]/g, '');
-          e.currentTarget.value = value
-            .split('-')
-            .flatMap((p) => {
-              if (p.length > 8) {
-                const ret: string[] = [];
-                for (let i = 0; i < Math.ceil(p.length / 8); i++) {
-                  ret.push(p.substring(i * 8, (i + 1) * 8));
-                }
-                return ret;
-              } else {
-                return p;
-              }
-            })
-            .join('-');
-        }
+        e.currentTarget.value = autoCorrectLanguageCode(e.currentTarget.value);
       }
     }}
   >
