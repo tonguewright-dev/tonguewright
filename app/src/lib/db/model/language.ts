@@ -1,4 +1,5 @@
-import { artLangCodeSchema, uuidSchema } from '#lib/valibot.js';
+import { artLangCodeSchema } from '#lib/validation/langcode.ts';
+import { uuidSchema } from '#lib/validation/uuid.ts';
 import {
   type ExtractDocumentTypeFromTypedRxJsonSchema,
   type RxCollection,
