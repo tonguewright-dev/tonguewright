@@ -40,10 +40,16 @@
     "vite": "^8.3.0"
   },
   "imports": {
-    "#lib": "./src/lib/index.js",
+    "#lib": "./src/lib/index.ts",
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
+    "@bytemd/plugin-breaks": "^1.22.0",
+    "@bytemd/plugin-gemoji": "^1.22.0",
+    "@bytemd/plugin-gfm": "^1.22.0",
+    "@bytemd/plugin-mermaid": "^1.22.0",
+    "bytemd": "^1.22.0",
+    "github-markdown-css": "^5.9.0",
     "rxdb": "^17.6.0",
     "rxjs": "^7.8.2",
     "uuidv7": "^1.2.1"
