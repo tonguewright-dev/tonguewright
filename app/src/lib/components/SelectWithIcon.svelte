@@ -30,7 +30,7 @@
   <select {...attr} bind:value class:spacing={current}>
     {@render extra?.()}
     {#if !attr.required}
-      <option value="">None</option>
+      <option value={undefined}>None</option>
     {/if}
     {#each items as item (item.id)}
       <option {...item.attr} value={item.id}>

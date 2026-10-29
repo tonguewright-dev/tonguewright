@@ -60,6 +60,7 @@ export type Languages = RxCollection<Language, unknown, unknown>;
 export const languageDBSchema: RxJsonSchema<Language> = languageSchemaLiteral;
 
 export const languageFormSchema = v.object({
+  id: v.optional(uuidSchema),
   name: v.pipe(v.string(), v.minLength(1)),
   code: v.optional(artLangCodeSchema),
   description: v.optional(v.pipe(v.string(), v.maxLength(5000))),

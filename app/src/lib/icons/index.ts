@@ -2,6 +2,8 @@ export const Icons = {
   Ancestor: 'carbon:parent-child',
   CreateLanguage: 'fluent:globe-add-20-regular',
   Discord: 'lineicons:discord',
+  Edit: 'mdi:pencil-outline',
+  EditStop: 'mdi:pencil-off-outline',
   GitHub: 'lineicons:github',
   Name: 'bx:label',
   LangCode: 'material-symbols-light:language',
