@@ -6,7 +6,7 @@
   import { Icons } from '#lib/icons/index.ts';
   import SelectWithIcon from '#lib/components/SelectWithIcon.svelte';
   import { languages } from '#lib/stores.ts';
-  import Markdown from '../../../lib/components/Markdown.svelte';
+  import Markdown from '#lib/components/Markdown.svelte';
   import SubmitButton from '#lib/components/SubmitButton.svelte';
   import { db } from '#lib/db/index.ts';
   import { uuidv7 } from 'uuidv7';
@@ -29,7 +29,7 @@
         const id = uuidv7();
         db.languages
           .insert({ id, ...$form })
-          .then(() => goto(resolve(`/languages/[id=code]`, { id })));
+          .then(() => goto(resolve(`/languages/[id=uuid]`, { id })));
         cancel();
       }
     }
@@ -39,7 +39,7 @@
 <div class="breadcrumbs text-sm">
   <ul>
     <li><a href={resolve('/')}>Languages</a></li>
-    <li>Create a Language</li>
+    <li class="font-bold">Create a Language</li>
   </ul>
 </div>
 
@@ -79,14 +79,16 @@
       class="validator select w-full"
       icon={Icons.Ancestor}
       bind:value={$form.ancestorId}
-      items={$languages.map(({ id, name }) => ({ id, name }))}
-      attr={{ name: 'ancestorId', disabled: !$languages.length }}
+      items={Array.from($languages.values()).map(({ id, name }) => ({ id, name }))}
+      attr={{ name: 'ancestorId', disabled: !$languages.size }}
     />
     <span class="validator-hint">&nbsp;</span>
   </Input>
-  <Input label="Description ({$form.description?.length ?? 0}/5000)">
-    <Markdown bind:value={$form.description} maxLength={5000} />
-  </Input>
+  <Markdown
+    bind:value={$form.description}
+    maxLength={5000}
+    label="Description ({$form.description?.length ?? 0}/5000)"
+  />
   <div class="flex justify-end pt-2">
     <SubmitButton
       label="Create Language"

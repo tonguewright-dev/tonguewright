@@ -2,12 +2,13 @@
   import Icon from '#lib/icons/Icon.svelte';
   import { Icons } from '#lib/icons/index.ts';
   import { languages } from '#lib/stores.ts';
+  import { UUIDv72Base64Url } from '#lib/validation/uuid.ts';
   import { resolve } from '$app/paths';
 </script>
 
 <div class="breadcrumbs text-sm">
   <ul>
-    <li>Languages</li>
+    <li class="font-bold">Languages</li>
   </ul>
 </div>
 
@@ -17,12 +18,12 @@
   >
 {/snippet}
 
-{#if $languages?.length}
+{#if $languages.size}
   {@render create()}
   <ul>
-    {#each $languages as lang (lang.id)}
+    {#each $languages.values() as lang (lang.id)}
       <li>
-        <a href={resolve('/languages/[id=code]', { id: lang.code || lang.id })}>{lang.name}</a>
+        <a href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}>{lang.name}</a>
       </li>
     {/each}
   </ul>
