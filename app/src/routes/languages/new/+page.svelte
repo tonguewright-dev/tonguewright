@@ -28,7 +28,7 @@
       onSubmit({ cancel }) {
         const id = uuidv7();
         db.languages
-          .insert({ id, ...$form })
+          .insert({ ...$form, id })
           .then(() => goto(resolve(`/languages/[id=uuid]`, { id })));
         cancel();
       }
