@@ -1,5 +1,6 @@
 export const Icons = {
   Ancestor: 'carbon:parent-child',
+  Cancel: 'icon-park-outline:return',
   CreateLanguage: 'fluent:globe-add-20-regular',
   Discord: 'lineicons:discord',
   Edit: 'mdi:pencil-outline',
