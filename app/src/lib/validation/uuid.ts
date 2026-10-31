@@ -41,11 +41,11 @@ export function UUIDv72Base64Url(uuid: string) {
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
-export const uuidSchema = v.pipe(
+export const uuidOrb64Schema = v.pipe(
   v.union([
     v.pipe(v.string(), v.regex(uuidv7RegExp)),
     v.pipe(v.string(), v.regex(base64URLRegExp), v.transform(base64Url2UUIDv7))
-  ]),
-  v.brand('UUID')
+  ])
 );
-export type UUID = v.InferOutput<typeof uuidSchema>;
+
+export const uuidSchema = v.pipe(v.string(), v.regex(uuidv7RegExp), v.maxLength(36));
