@@ -33,7 +33,7 @@
   <h3 class="mt-0">Ancestor</h3>
   <a
     class="btn font-bold btn-secondary"
-    href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(data.language.ancestorId) })}
+    href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url(data.language.ancestorId) })}
   >
     {$languages.get(data.language.ancestorId)?.name}
   </a>
@@ -44,7 +44,7 @@
     {#each descendants as desc (desc.id)}
       <a
         class="btn font-bold btn-secondary"
-        href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(desc.id) })}>{desc.name}</a
+        href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url(desc.id) })}>{desc.name}</a
       >
     {/each}
   </div>
