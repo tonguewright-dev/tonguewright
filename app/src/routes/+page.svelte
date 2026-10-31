@@ -18,7 +18,7 @@
 </div>
 
 {#snippet create()}
-  <a class="btn font-bold btn-primary" href={resolve('/languages/new')}
+  <a class="btn font-bold btn-primary" href={resolve('/lang/new')}
     ><Icon icon={Icons.CreateLanguage} width={20} />Create a Language</a
   >
 {/snippet}
@@ -52,11 +52,9 @@
       {#each $languages.values() as lang (lang.id)}
         <li class="list-row">
           <div>
-            <a href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}
-              >{lang.name}</a
-            >
+            <a href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}>{lang.name}</a>
             {#if lang.code}
-              <div class="text-xs font-semibold uppercase opacity-60">{lang.code}</div>
+              <div class="text-xs font-semibold opacity-60">{lang.code}</div>
             {/if}
           </div>
         </li>
@@ -66,11 +64,9 @@
     <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
       {#each $languages.values() as lang (lang.id)}
         <div class="rounded-md border border-base-content/20 p-2 shadow">
-          <a href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}
-            >{lang.name}</a
-          >
+          <a href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}>{lang.name}</a>
           {#if lang.code}
-            <div class="text-xs font-semibold uppercase opacity-60">{lang.code}</div>
+            <div class="text-xs font-semibold opacity-60">{lang.code}</div>
           {/if}
         </div>
       {/each}

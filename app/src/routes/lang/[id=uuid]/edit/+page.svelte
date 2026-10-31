@@ -5,15 +5,14 @@
   import Input from '#lib/components/Input.svelte';
   import { Icons } from '#lib/icons/index.ts';
   import SelectWithIcon from '#lib/components/SelectWithIcon.svelte';
-  import { languages } from '#lib/stores.ts';
+  import { langTree, languages } from '#lib/stores.ts';
   import Markdown from '#lib/components/Markdown.svelte';
   import SubmitButton from '#lib/components/SubmitButton.svelte';
   import { db } from '#lib/db/index.ts';
-  import { uuidv7 } from 'uuidv7';
-  import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { langCodeRegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
   import CancelButton from '#lib/components/CancelButton.svelte';
+  import { UUIDv72Base64Url } from '#lib/validation/uuid.ts';
 
   interface Props {
     data: PageData;
@@ -21,26 +20,43 @@
 
   const { data }: Props = $props();
 
-  const { form, enhance, tainted, delayed } = superForm(
+  let loading = $state(false);
+
+  const { form, enhance, tainted } = superForm(
     untrack(() => data.form),
     {
       dataType: 'json',
       resetForm: false,
-      onSubmit({ cancel }) {
-        const id = uuidv7();
-        db.languages
-          .insert({ ...$form, id })
-          .then(() => goto(resolve(`/languages/[id=uuid]`, { id })));
+      onSubmit({ cancel, formElement }) {
+        loading = true;
+        db.languages.upsert({ ...$form }).then(() => {
+          saved = true;
+          loading = false;
+          Array.from(formElement.elements).forEach((el) => {
+            (el as HTMLInputElement).setCustomValidity('');
+          });
+        });
         cancel();
       }
     }
+  );
+
+  let saved = $derived(!Object.values($tainted ?? {}).some(Boolean));
+
+  const candidateAncestors = $derived(
+    Array.from($languages.values())
+      .filter((l) => $form.id !== l.id && !$langTree.get($form.id!)?.all.has(l.id))
+      .map(({ id, name }) => ({ id, name }))
   );
 </script>
 
 <div class="breadcrumbs text-sm">
   <ul>
     <li><a href={resolve('/')}>Languages</a></li>
-    <li class="font-bold">Create a Language</li>
+    <li>
+      <a href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url($form.id) })}>{$form.name}</a>
+    </li>
+    <li class="font-bold">Edit</li>
   </ul>
 </div>
 
@@ -80,23 +96,26 @@
       class="validator select w-full"
       icon={Icons.Ancestor}
       bind:value={$form.ancestorId}
-      items={Array.from($languages.values()).map(({ id, name }) => ({ id, name }))}
-      attr={{ name: 'ancestorId', disabled: !$languages.size }}
+      items={candidateAncestors}
+      attr={{ name: 'ancestorId', disabled: !candidateAncestors.length }}
     />
     <span class="validator-hint">&nbsp;</span>
   </Input>
   <Markdown
+    label="Description ({$form.description?.length ?? 0}/5000)"
     bind:value={$form.description}
     maxLength={5000}
-    label="Description ({$form.description?.length ?? 0}/5000)"
   />
   <div class="flex justify-end gap-2 pt-2">
-    <CancelButton label="Go Back" returnTo={resolve('/')} />
+    <CancelButton
+      label="Go Back"
+      returnTo={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url($form.id) })}
+    />
     <SubmitButton
-      label="Create Language"
-      loading={$delayed}
-      disabled={!$tainted || !$form.name}
-      icon={Icons.CreateLanguage}
+      label="Save Changes"
+      {loading}
+      disabled={saved || !$form.name}
+      icon={Icons.Save}
     />
   </div>
 </form>
