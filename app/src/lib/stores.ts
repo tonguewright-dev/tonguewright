@@ -3,10 +3,11 @@ import { db } from './db';
 import type { Language } from './db/model/language';
 import { browser } from '$app/env';
 import * as v from 'valibot';
+import type { RxDocument } from 'rxdb';
 
 export const languages = derived(
-  db.languages.find().$ as unknown as Readable<Language[] | undefined>,
-  (languages) => new Map<string, Language>(languages?.map((l) => [l.id, l]))
+  db.languages.find().$ as unknown as Readable<RxDocument<Language>[] | undefined>,
+  (languages) => new Map<string, Language>(languages?.map((l) => [l.id, l._data]))
 );
 
 export const langTree = derived(languages, ($languages) => {
