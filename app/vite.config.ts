@@ -17,6 +17,9 @@ export default defineConfig({
       }),
       router: {
         type: 'hash'
+      },
+      version: {
+        name: process.env.npm_package_version
       }
     })
   ],

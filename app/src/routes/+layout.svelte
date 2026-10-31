@@ -5,12 +5,42 @@
   import { resolve } from '$app/paths';
   import Icon from '#lib/icons/Icon.svelte';
   import { Icons } from '#lib/icons/index.ts';
+  import { version } from '$app/env';
+  import { ENV_SUFFIX } from '$app/env/public';
+  import { onMount } from 'svelte';
+  import { bytesToHumanSize } from '#lib/utils.ts';
 
   let { children }: LayoutProps = $props();
 
   const currentYear = new Date().getFullYear();
 
   let drawerOpen: boolean | undefined = $state();
+
+  let storage = $state({
+    usage: 0,
+    quota: 1
+  });
+
+  function estimateStorage() {
+    try {
+      navigator.storage.estimate().then((estimate) => {
+        const { usage = 0, quota = 1 } = estimate;
+        storage = {
+          usage,
+          quota
+        };
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onMount(() => {
+    estimateStorage();
+    const interval = setInterval(estimateStorage, 30_000 /* every 30s */);
+
+    return () => clearInterval(interval);
+  });
 </script>
 
 <svelte:head>
@@ -162,6 +192,12 @@
           </a>
         </li>
       </ul>
+      <div class="m-2 rounded-md bg-base-100 p-2 is-drawer-close:hidden is-drawer-open:w-44">
+        <p>
+          {bytesToHumanSize(storage.usage)} ({((storage.usage / storage.quota) * 100).toFixed(2)}%).
+        </p>
+        Version: {version}{#if ENV_SUFFIX}-{ENV_SUFFIX}{/if}
+      </div>
     </div>
   </div>
 </div>
