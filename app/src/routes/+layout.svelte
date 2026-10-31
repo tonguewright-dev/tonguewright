@@ -22,7 +22,7 @@
       href={resolve('/')}>tonguewright</a
     >
   </nav>
-  <div class="mx-auto my-2 prose w-full grow px-2">
+  <div class="mx-auto my-2 prose w-full max-w-full grow px-2 sm:max-w-xl md:max-w-3xl">
     {@render children()}
   </div>
   <footer class="flex flex-row items-center bg-neutral p-4 text-neutral-content">

@@ -7,7 +7,9 @@ export const Icons = {
   GitHub: 'lineicons:github',
   Name: 'bx:label',
   LangCode: 'material-symbols-light:language',
-  Save: 'material-symbols:save-outline'
+  Save: 'material-symbols:save-outline',
+  ViewGrid: 'clarity:grid-view-line',
+  ViewList: 'clarity:view-list-line'
 } as const;
 
 export type IconType = (typeof Icons)[keyof typeof Icons] | '';
