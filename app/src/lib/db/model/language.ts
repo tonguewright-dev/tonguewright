@@ -1,68 +1,30 @@
-import { artLangCodeSchema } from '#lib/validation/langcode.ts';
+import { langCodeSchema } from '#lib/validation/langcode.ts';
 import { uuidSchema } from '#lib/validation/uuid.ts';
-import {
-  type ExtractDocumentTypeFromTypedRxJsonSchema,
-  type RxCollection,
-  type RxJsonSchema,
-  toTypedRxJsonSchema
-} from 'rxdb';
+import { type RxCollection, type RxJsonSchema } from 'rxdb';
 import * as v from 'valibot';
+import { toJsonSchema } from '@valibot/to-json-schema';
+
+export const languageFormSchema = v.object({
+  id: uuidSchema,
+  name: v.pipe(v.string(), v.minLength(1)),
+  code: v.optional(langCodeSchema),
+  description: v.optional(v.pipe(v.string(), v.maxLength(5000))),
+  ancestorId: v.optional(uuidSchema),
+  created: v.optional(v.pipe(v.string(), v.isoTimestamp(), v.maxLength(30))),
+  updated: v.optional(v.pipe(v.string(), v.isoTimestamp(), v.maxLength(30))),
+  preset: v.optional(v.boolean())
+});
 
 const languageSchemaLiteral = {
+  ...toJsonSchema(languageFormSchema),
   title: 'language schema',
   description: 'describes a language',
   version: 0,
-  primaryKey: 'id',
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string',
-      maxLength: 36 // UUIDv7 is 36 chars
-    },
-    name: {
-      type: 'string'
-    },
-    code: {
-      type: 'string'
-    },
-    description: {
-      type: 'string'
-    },
-    ancestorId: {
-      type: 'string',
-      maxLength: 36,
-      ref: 'languages'
-    },
-    created: {
-      type: 'string',
-      format: 'date-time',
-      maxLength: 30
-    },
-    updated: {
-      type: 'string',
-      format: 'date-time',
-      maxLength: 30
-    },
-    preset: {
-      type: 'boolean',
-      default: false
-    }
-  },
-  required: ['id', 'name']
-} as const satisfies RxJsonSchema<never>;
+  primaryKey: 'id'
+} as const;
 
-const _schemaTyped = toTypedRxJsonSchema(languageSchemaLiteral);
-
-export type Language = ExtractDocumentTypeFromTypedRxJsonSchema<typeof _schemaTyped>;
+export type Language = v.InferOutput<typeof languageFormSchema>;
 
 export type Languages = RxCollection<Language, unknown, unknown>;
 
-export const languageDBSchema: RxJsonSchema<Language> = languageSchemaLiteral;
-
-export const languageFormSchema = v.object({
-  id: v.optional(uuidSchema),
-  name: v.pipe(v.string(), v.minLength(1)),
-  code: v.optional(artLangCodeSchema),
-  description: v.optional(v.pipe(v.string(), v.maxLength(5000))),
-  ancestorId: v.optional(uuidSchema)
-});
+export const languageDBSchema = languageSchemaLiteral as RxJsonSchema<Language>;

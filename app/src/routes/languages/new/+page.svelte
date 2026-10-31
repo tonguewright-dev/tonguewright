@@ -12,7 +12,7 @@
   import { uuidv7 } from 'uuidv7';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
-  import { artBCP47RegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
+  import { langCodeRegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
 
   interface Props {
     data: PageData;
@@ -61,7 +61,7 @@
       name: 'code',
       icon: Icons.LangCode,
       placeholder: 'art-x-langcode',
-      pattern: artBCP47RegExp.source,
+      pattern: langCodeRegExp.source,
       oninput: (e) => {
         e.currentTarget.value = autoCorrectLanguageCode(e.currentTarget.value);
       }

@@ -10,7 +10,7 @@
   import SubmitButton from '#lib/components/SubmitButton.svelte';
   import { db } from '#lib/db/index.ts';
   import { resolve } from '$app/paths';
-  import { artBCP47RegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
+  import { langCodeRegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
   import { UUIDv72Base64Url } from '#lib/validation/uuid.ts';
 
   interface Props {
@@ -80,7 +80,7 @@
       name: 'code',
       icon: Icons.LangCode,
       placeholder: 'art-x-langcode',
-      pattern: artBCP47RegExp.source,
+      pattern: langCodeRegExp.source,
       oninput: (e) => {
         e.currentTarget.value = autoCorrectLanguageCode(e.currentTarget.value);
       }
