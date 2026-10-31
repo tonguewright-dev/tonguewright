@@ -13,6 +13,7 @@
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { langCodeRegExp, autoCorrectLanguageCode } from '#lib/validation/langcode.ts';
+  import CancelButton from '#lib/components/CancelButton.svelte';
 
   interface Props {
     data: PageData;
@@ -89,7 +90,8 @@
     maxLength={5000}
     label="Description ({$form.description?.length ?? 0}/5000)"
   />
-  <div class="flex justify-end pt-2">
+  <div class="flex justify-end gap-2 pt-2">
+    <CancelButton label="Go Back" returnTo={resolve('/')} />
     <SubmitButton
       label="Create Language"
       loading={$delayed}

@@ -52,7 +52,9 @@
       {#each $languages.values() as lang (lang.id)}
         <li class="list-row">
           <div>
-            <a href={resolve('/languages/[id=uuid]', { id: lang.id })}>{lang.name}</a>
+            <a href={resolve('/languages/[id=uuid]', { id: UUIDv72Base64Url(lang.id) })}
+              >{lang.name}</a
+            >
             {#if lang.code}
               <div class="text-xs font-semibold uppercase opacity-60">{lang.code}</div>
             {/if}
