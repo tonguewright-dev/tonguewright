@@ -3,10 +3,10 @@ import { defineParams } from '@sveltejs/kit/params';
 import { safeParse } from 'valibot';
 
 export const params = defineParams({
-  uuid(value: string) {
+  uuid(value) {
     const parsed = safeParse(uuidOrb64Schema, value);
     if (parsed.success) {
-      return parsed.output as string;
+      return parsed.output;
     }
   }
 });

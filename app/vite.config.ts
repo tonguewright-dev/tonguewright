@@ -1,5 +1,5 @@
 import tailwindcss from '@tailwindcss/vite';
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
@@ -13,8 +13,7 @@ export default defineConfig({
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       },
       adapter: adapter({
-        fallback: '200.html',
-        pages: '.svelte-kit/cloudflare'
+        fallback: 'spa'
       }),
       router: {
         type: 'hash'
