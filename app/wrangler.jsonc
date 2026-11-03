@@ -5,9 +5,5 @@
   "compatibility_flags": [
     "nodejs_als"
   ],
-  "pages_build_output_dir": ".svelte-kit/cloudflare",
-  "vars": {
-    "ENV_SUFFIX": "",
-    "NODE_VERSION": ""
-  }
+  "pages_build_output_dir": ".svelte-kit/cloudflare"
 }
