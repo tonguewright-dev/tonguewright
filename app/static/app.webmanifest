@@ -1,0 +1,11 @@
+{
+  "name": "tonguewright conlang creation tool",
+  "short_name": "tonguewright",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1f1f1",
+  "theme_color": "#8c0327",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "192x192", "type": "image/svg" }
+  ]
+}
