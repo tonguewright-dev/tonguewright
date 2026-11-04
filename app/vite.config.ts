@@ -19,7 +19,7 @@ export default defineConfig({
         type: 'hash'
       },
       version: {
-        name: process.env.npm_package_version
+        name: `${process.env.npm_package_version};${Date.now()}`
       }
     })
   ],

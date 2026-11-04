@@ -1,15 +1,15 @@
 <script lang="ts">
   import './layout.css';
-  import favicon from '#lib/assets/favicon.svg';
   import type { LayoutProps } from './$types';
   import { resolve } from '$app/paths';
   import Icon from '#lib/icons/Icon.svelte';
   import { Icons } from '#lib/icons/index.ts';
   import { version } from '$app/env';
-  import { ENV_SUFFIX } from '$app/env/public';
   import { onMount } from 'svelte';
   import { bytesToHumanSize } from '#lib/utils.ts';
   import { isDarkMode, preferences } from '#lib/stores.ts';
+  import { afterNavigate } from '$app/navigation';
+  import { loadIcons } from '@iconify/svelte';
 
   let { children }: LayoutProps = $props();
 
@@ -42,12 +42,18 @@
 
     return () => clearInterval(interval);
   });
-</script>
 
-<svelte:head>
-  <link rel="icon" href={favicon} />
-  <title>tonguewright</title>
-</svelte:head>
+  onMount(() => {
+    loadIcons(Object.values(Icons));
+  });
+
+  afterNavigate(async () => {
+    if ('serviceWorker' in navigator) {
+      const registration = await navigator.serviceWorker.getRegistration();
+      await registration?.update();
+    }
+  });
+</script>
 
 <div class="drawer h-screen md:drawer-open" data-theme={$isDarkMode ? 'coffee' : 'autumn'}>
   <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" bind:checked={drawerOpen} />
@@ -154,7 +160,7 @@
         <p>
           {bytesToHumanSize(storage.usage)} ({((storage.usage / storage.quota) * 100).toFixed(2)}%).
         </p>
-        Version: {version}{#if ENV_SUFFIX}-{ENV_SUFFIX}{/if}
+        Version: {version.split(';')[0]}
       </div>
     </div>
   </div>
