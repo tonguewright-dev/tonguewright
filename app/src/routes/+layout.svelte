@@ -10,6 +10,6 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="prose h-screen">
+<div class="mx-auto prose h-screen p-2">
   {@render children()}
 </div>
