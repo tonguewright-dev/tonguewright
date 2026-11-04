@@ -4,3 +4,7 @@
     href="https://github.com/tonguewright-dev/tonguewright">tonguewright-dev/tonguewright</a
   > for more details.
 </p>
+
+<p>
+  Try the alpha version <a href="https://dev.tonguewright-app.pages.dev">here</a>
+</p>
