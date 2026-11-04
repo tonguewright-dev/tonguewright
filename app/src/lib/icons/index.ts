@@ -1,4 +1,5 @@
 export const Icons = {
+  About: 'mdi:information-outline',
   Ancestor: 'carbon:parent-child',
   BackupRestore: 'mdi:file-arrow-up-down-outline',
   Cancel: 'icon-park-outline:return',

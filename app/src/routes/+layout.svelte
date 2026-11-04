@@ -50,7 +50,7 @@
 
 <div class="drawer h-screen md:drawer-open">
   <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" bind:checked={drawerOpen} />
-  <div class="drawer-content flex flex-col bg-base-100">
+  <div class="drawer-content flex flex-col overflow-y-auto bg-base-100">
     <nav class="navbar bg-primary text-primary-content shadow-sm">
       <label
         for="my-drawer-4"
@@ -65,8 +65,9 @@
       </label>
       <a
         class="btn btn-ghost text-xl text-primary-content hover:text-base-content"
-        href={resolve('/')}>tonguewright</a
+        href={resolve('/')}
       >
+        tonguewright
     </nav>
     <div class="mx-auto my-2 prose w-full max-w-full grow px-2 sm:max-w-xl md:max-w-3xl">
       {@render children()}
@@ -107,59 +108,6 @@
           >
             <Icon icon={Icons.Home} width={20} />
             <span class="is-drawer-close:hidden">Home</span>
-          </a>
-        </li>
-        <hr />
-        <li>
-          <a
-            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            data-tip="Phonology - Coming Soon"
-            href="https://github.com/tonguewright-dev/tonguewright/issues/2"
-            target="_blank"
-          >
-            <Icon icon={Icons.Phonology} width={20} />
-            <span class="is-drawer-close:hidden"
-              >Phonology<br /><span class="badge badge-sm badge-warning">Coming Soon</span></span
-            >
-          </a>
-        </li>
-        <li>
-          <a
-            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            data-tip="Lexicon - Coming Soon"
-            href="https://github.com/tonguewright-dev/tonguewright/issues/3"
-            target="_blank"
-          >
-            <Icon icon={Icons.Lexicon} width={20} />
-            <span class="is-drawer-close:hidden"
-              >Lexicon<br /><span class="badge badge-sm badge-warning">Coming Soon</span></span
-            >
-          </a>
-        </li>
-        <li>
-          <a
-            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            data-tip="Grammar - Coming Soon"
-            href="https://github.com/tonguewright-dev/tonguewright/issues/4"
-            target="_blank"
-          >
-            <Icon icon={Icons.Grammar} width={20} />
-            <span class="is-drawer-close:hidden"
-              >Grammar<br /><span class="badge badge-sm badge-warning">Coming Soon</span></span
-            >
-          </a>
-        </li>
-        <li>
-          <a
-            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            data-tip="Texts - Coming Soon"
-            href="https://github.com/tonguewright-dev/tonguewright/issues/5"
-            target="_blank"
-          >
-            <Icon icon={Icons.Texts} width={20} />
-            <span class="is-drawer-close:hidden"
-              >Texts<br /><span class="badge badge-sm badge-warning">Coming Soon</span></span
-            >
           </a>
         </li>
         <hr />

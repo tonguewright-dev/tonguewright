@@ -1,8 +1,8 @@
-import type { PageLoad } from './$types';
+import type { LayoutLoad } from './$types';
 import { db } from '#lib/db/index.ts';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ params }) => {
+export const load: LayoutLoad = async ({ params }) => {
   const language = (
     await db.languages
       .find({
