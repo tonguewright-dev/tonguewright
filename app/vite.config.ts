@@ -13,7 +13,8 @@ export default defineConfig({
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       },
       adapter: adapter({
-        fallback: '200.html'
+        fallback: '200.html',
+        pages: '.svelte-kit/cloudflare'
       }),
       router: {
         type: 'hash'
