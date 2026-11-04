@@ -1,4 +1,4 @@
-import { derived, writable, type Readable, type Writable } from 'svelte/store';
+import { derived, readable, writable, type Readable, type Writable } from 'svelte/store';
 import { db } from './db';
 import type { Language } from './db/model/language';
 import { browser } from '$app/env';
@@ -62,11 +62,27 @@ export function persistedLocal<T, S extends v.BaseSchema<unknown, T, v.BaseIssue
   return start;
 }
 
+const darkModeBrowser = readable(
+  window.matchMedia('(prefers-color-scheme: dark)').matches,
+  (set) => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+      set(event.matches);
+    });
+  }
+);
+
 export const preferences = persistedLocal(
   'preferences',
   v.object({
-    languageView: v.optional(v.picklist(['list', 'grid']), 'list')
+    languageView: v.optional(v.picklist(['list', 'grid']), 'list'),
+    darkMode: v.optional(v.boolean())
   })
+);
+
+export const isDarkMode = derived(
+  [darkModeBrowser, preferences],
+  ([$darkModeBrowser, $preferences]) =>
+    $preferences.darkMode === undefined ? $darkModeBrowser : $preferences.darkMode
 );
 
 export type LanguageTab = 'about' | 'phon' | 'lex' | 'grammar' | 'text';
