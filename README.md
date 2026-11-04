@@ -2,7 +2,13 @@
 
 `tonguewright` is an offline-first web application for creating constructed languages. It incorporates the best of modern linguistics theory in a way that is easy to use for beginners, but satisfying for those who know more.
 
-As of the writing of this document, `tonguewright` does not exist in any meaningful form beyond this document, but hopefully it will soon. I (the developer) have a regular job outside of this, and am also currently studying for a master's degree in linguistics, so time is tight. But we'll see what I can manage on the odd evening that I am not working on term papers.
+I (the developer) have a regular job outside of this, and am also currently studying for a master's degree in linguistics, so time is tight. But we'll see what I can manage on the odd evening that I am not working on term papers.
+
+## Location
+
+[Production](https://app.tonguewright.com)
+
+[Alpha](https://dev.tonguewright-app.pages.dev/)
 
 ## Goals
 
