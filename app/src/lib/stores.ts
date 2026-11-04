@@ -68,3 +68,6 @@ export const preferences = persistedLocal(
     languageView: v.optional(v.picklist(['list', 'grid']), 'list')
   })
 );
+
+export type LanguageTab = 'about' | 'phon' | 'lex' | 'grammar' | 'text';
+export const languageTab = writable<LanguageTab>('about');

@@ -50,16 +50,6 @@
   );
 </script>
 
-<div class="breadcrumbs text-sm">
-  <ul>
-    <li><a href={resolve('/')}>Languages</a></li>
-    <li>
-      <a href={resolve('/lang/[id=uuid]', { id: UUIDv72Base64Url($form.id) })}>{$form.name}</a>
-    </li>
-    <li class="font-bold">Edit</li>
-  </ul>
-</div>
-
 <form method="POST" use:enhance>
   <Input
     label="Name (required)"
