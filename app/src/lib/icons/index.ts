@@ -19,6 +19,8 @@ export const Icons = {
   SideClose: 'flowbite:close-sidebar-alt-outline',
   SideOpen: 'flowbite:open-sidebar-alt-outline',
   Texts: 'andrsrxn:file-text',
+  UIDark: 'andrsrxn:moon',
+  UILight: 'andrsrxn:sun',
   ViewGrid: 'clarity:grid-view-line',
   ViewList: 'clarity:view-list-line'
 } as const;

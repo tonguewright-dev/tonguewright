@@ -9,6 +9,7 @@
   import { ENV_SUFFIX } from '$app/env/public';
   import { onMount } from 'svelte';
   import { bytesToHumanSize } from '#lib/utils.ts';
+  import { isDarkMode, preferences } from '#lib/stores.ts';
 
   let { children }: LayoutProps = $props();
 
@@ -48,7 +49,7 @@
   <title>tonguewright</title>
 </svelte:head>
 
-<div class="drawer h-screen md:drawer-open">
+<div class="drawer h-screen md:drawer-open" data-theme={$isDarkMode ? 'coffee' : 'autumn'}>
   <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" bind:checked={drawerOpen} />
   <div class="drawer-content flex flex-col overflow-y-auto bg-base-100">
     <nav class="navbar bg-primary text-primary-content shadow-sm">
@@ -68,6 +69,15 @@
         href={resolve('/')}
       >
         tonguewright
+      </a>
+      <span class="grow"></span>
+      <label class="toggle toggle-secondary">
+        <input type="checkbox" bind:checked={$preferences.darkMode} />
+
+        <Icon icon={Icons.UILight} width={12} />
+
+        <Icon icon={Icons.UIDark} width={12} />
+      </label>
     </nav>
     <div class="mx-auto my-2 prose w-full max-w-full grow px-2 sm:max-w-xl md:max-w-3xl">
       {@render children()}
