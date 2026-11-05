@@ -1,19 +1,17 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import type { Snippet } from 'svelte';
-  import type { PageData } from './$types';
   import { page } from '$app/state';
-  import { languageTab, type LanguageTab } from '#lib/stores.ts';
+  import { languages, languageTab, type LanguageTab } from '#lib/stores.ts';
   import { UUIDv72Base64Url } from '#lib/validation/uuid.ts';
   import { Icons, type IconType } from '#lib/icons/index.ts';
   import Icon from '#lib/icons/Icon.svelte';
 
   interface Props {
     children?: Snippet;
-    data: PageData;
   }
 
-  let { children, data }: Props = $props();
+  let { children }: Props = $props();
 
   const tabs: { key: LanguageTab; title: string; icon: IconType; pending?: boolean }[] = [
     { key: 'about', title: 'About', icon: Icons.About },
@@ -24,12 +22,14 @@
   ];
 
   const currentTab = $derived(tabs.find((t) => t.key === $languageTab));
+
+  const language = $derived($languages.get(page.params.id!));
 </script>
 
 <div class="breadcrumbs text-sm">
   <ul>
     <li><a href={resolve('/')}>Languages</a></li>
-    <li class="font-bold">{data.language.name}</li>
+    <li class="font-bold">{language?.name}</li>
     <li>
       <span class="font-bold italic">{currentTab?.title}</span>
       {#if currentTab?.pending}
