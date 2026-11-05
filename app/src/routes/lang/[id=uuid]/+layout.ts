@@ -13,6 +13,4 @@ export const load: LayoutLoad = async ({ params }) => {
   if (!language) {
     throw error(404);
   }
-
-  return { language };
 };
